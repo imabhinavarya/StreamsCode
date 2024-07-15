@@ -157,8 +157,7 @@ public class Main {
     }
 
     private static String concatStrings(List<String> list) {
-        String collect = list.stream().collect(Collectors.joining(","));
-        return collect;
+        return list.stream().collect(Collectors.joining(","));
     }
 
     private static Character firstNonRep(String str){
