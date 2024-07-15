@@ -81,6 +81,90 @@ public class Main {
         System.out.println("++++++++++++13+++++++++++++");
         l1 = Arrays.asList(1,2,3,4,5,6,7,8,9,10);
         partitionByOddEven(l1);
+
+        System.out.println("++++++++++++14+++++++++++++");
+        List<String> sentences = Arrays.asList(
+                "Hello world A",
+                "This is a Java program",
+                "Java streams are powerful",
+                "Hello world again"
+        );
+        System.out.println(uniqueWords(sentences));
+
+        System.out.println("++++++++++++15+++++++++++++");
+        List<List<Integer>> listOfLists = Arrays.asList(
+                Arrays.asList(1, 2, 3),
+                Arrays.asList(4, 5, 6),
+                Arrays.asList(7, 8, 9)
+        );
+        System.out.println(flattenListOfList(listOfLists));
+
+        System.out.println("++++++++++++16+++++++++++++");
+        list = Arrays.asList("Abhinav","Sachin","Abhi","Ab");
+        System.out.println(mapConversion(list));
+
+        System.out.println("++++++++++++17+++++++++++++");
+        list = Arrays.asList("apple", "banana", "cherry", "date", "kiwi", "pear");
+        System.out.println(groupingByLength(list));
+
+        System.out.println("++++++++++++18+++++++++++++");
+        list = Arrays.asList("apple", "banana", "cherry", "date", "kiwi", "pear");
+        System.out.println(respectiveLength(list));
+
+        System.out.println("++++++++++++19+++++++++++++");
+        String st = "abhinav";
+        System.out.println(countChars(st));
+
+        System.out.println("++++++++++++20+++++++++++++");
+        l = Arrays.asList(1,2,3,4);
+        System.out.println(listMultiplication(l));
+    }
+
+    private static Integer listMultiplication(List<Integer> l) {
+        return l.stream()
+                .reduce(1, (a, b) -> a * b);
+    }
+
+    private static Map<?,?> countChars(String s) {
+        return s.chars()
+                .mapToObj(c -> (char)c)
+                .collect(Collectors.groupingBy(
+                        c -> c,
+                        Collectors.counting()
+                ));
+    }
+
+    private static List<Integer> respectiveLength(List<String> list) {
+        return list.stream()
+                .map(str -> str.length())
+                .toList();
+    }
+
+    private static Map<?,?> groupingByLength(List<String> list) {
+        return list.stream()
+                .collect(Collectors.groupingBy(str -> str.length()));
+    }
+
+    private static Map<String,Integer> mapConversion(List<String> list) {
+        return list.stream()
+                .collect(Collectors.toMap(
+                        str-> str,
+                        str-> str.length()
+                ));
+    }
+
+    private static List<Integer> flattenListOfList(List<List<Integer>> listOfLists) {
+        List<Integer> list = listOfLists.stream()
+                .flatMap(i -> i.stream())
+                .toList();
+        return list;
+    }
+
+    private static Set<String> uniqueWords(List<String> sentences) {
+        return sentences.stream()
+                .flatMap(sentence -> Arrays.stream(sentence.split(" ")))
+                .map(word -> word.toLowerCase())
+                .collect(Collectors.toSet());
     }
 
     private static void partitionByOddEven(List<Integer> list) {
@@ -142,8 +226,7 @@ public class Main {
     }
 
     private static List<String> filterNull(List<String> s) {
-        return s
-                .stream()
+        return s.stream()
                 .filter(str -> str!=null)
                 .toList();
     }
